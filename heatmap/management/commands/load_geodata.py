@@ -14,10 +14,14 @@ import io
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-        truncated_data = '''
-        network,geoname_id,registered_country_geoname_id,represented_country_geoname_id,is_anonymous_proxy,is_satellite_provider,postal_code,latitude,longitude,accuracy_radius
-        1.0.0.0/24,2070667,2077456,,0,0,5214,-35.5016,138.7819,100
-        1.0.1.0/24,1811017,1814991,,0,0,,24.4798,118.0819,50
-        '''
-        df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
+        # The truncated_data test below works.
+        # truncated_data = '''
+        # network,geoname_id,registered_country_geoname_id,represented_country_geoname_id,is_anonymous_proxy,is_satellite_provider,postal_code,latitude,longitude,accuracy_radius
+        # 1.0.0.0/24,2070667,2077456,,0,0,5214,-35.5016,138.7819,100
+        # 1.0.1.0/24,1811017,1814991,,0,0,,24.4798,118.0819,50
+        # '''
+        # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
+        # Now will try to parse from the entire csv file.
+        df = pd.read_csv("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv")
+        # saved_lat = df.latitude
         print(df)

@@ -9,6 +9,9 @@ django = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
 pandas = "*"
+numpy = "*"
+django-pandas = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

@@ -6,46 +6,53 @@ Issues:
 
 Steps:
 
-Set up Repo on GitHub DONE
-	Create Django REST framework project, pipenv install packages and update settings using Django Quickstart DONE
-	import IPv4 file and set to ignore DONE
+1) Set up Repo on GitHub DONE
+	Create Django REST framework project, pipenv install packages and update    settings using Django Quickstart DONE
+	Import IPv4 file and set to ignore DONE
 
-Research how to access csv file in Django DONE
-Write the python script DONE
-Make it work in Python shell DONE
+2) Research how to access csv file in Django DONE
+    Write the python script DONE
+    Make it work in Python shell DONE
 
-Management command to load csv file DONE
+    Management command to load csv file DONE
 
-Research models for Latitude and Longitude - DONE/MAY NEED MORE FIELDS
+    Research models for Latitude and Longitude - IN PROGRESS (not added yet/    may need more fields)
 
-Test if can parse lat/long data from limit of 50 numbers DONE
-	make lat columns = x and long column = y (make fit mapbox API) RESEARCH
+    Test if can parse lat/long data from top three lines of csv DONE
 
-Parse data from IPv4 file DONE
-	parse data
+    Parse data from IPv4 file DONE
+	
 		csv module: https://docs.python.org/3/library/csv.html NO
 
-	research how to parse specific columns from csv file YES
+	    Parse specific columns from csv file YES
 		https://stackoverflow.com/questions/16503560/read-specific-columns-from-a-csv-file-with-csv-module
 
-import pandas as pd DONE
-df = pd.read_csv(csv_file) DONE with lat/long
-saved_column = df.column_name #you can also use df['column_name'] RESEARCH
+    import pandas as pd DONE
+    df = pd.read_csv(csv_file) DONE with lat/long
+    saved_column = df.column_name #you can also use df['column_name'] RESEARCH
 
 	get latitude and longitude information DONE
 
-Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box (may need to fine tune resolution of data to improve performance) 
-	research REST endpoint
-	write code to return list of coordinates
+3) Research MapBox
+    Make lat and long columns fit mapbox API RESEARCH
+    Watched 'How to Upload Data in Mapbox Studio' DONE
+    Need GeoJSON, JSON, or csv file
+        (csv will be too large)
+    Research GeoJSON
+    Create GeoJSON or JSON file
+
+4) Define a REST endpoint that returns a list of coordinates within a           geographic coordinate bounding box (may need to fine tune resolution of         data to improve performance) 
+	Research REST endpoint
+	Write code to return list of coordinates
 		use Leaflet and Leaflet.heat libraries and others to draw geographical data on a map in the browser
 
-	bound in geo bounding box such as MapBox (free tier)
+	Bound in geo bounding box such as MapBox (free tier)
 	Opt: fine tune data
 
-Use REST endpoint in a single-page JavaScript application to display data to user
-	code REST endpoint in JS (user can zoom into map and see ipv4 data)
+5) Use REST endpoint in a single-page JavaScript application to display data    to user
+	Code REST endpoint in JS (user can zoom into map and see ipv4 data)
 
-Deploy to Heroku
+6) Deploy to Heroku
 
 BONUS
 

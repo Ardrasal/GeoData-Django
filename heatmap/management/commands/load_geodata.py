@@ -22,6 +22,6 @@ class Command(BaseCommand):
         # '''
         # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
         # Now will try to parse from the entire csv file.
-        df = pd.read_csv("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv")
+        df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
         # saved_lat = df.latitude
         print(df)

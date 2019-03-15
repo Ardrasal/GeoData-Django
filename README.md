@@ -43,9 +43,9 @@ Steps:
     Create GeoJSON file https://pypi.org/project/geojson/
 
 4) Finish Django REST Framework buildout
-    html templates (index, etc)
-    static files
-    url patterns for index page
+    html templates (index, etc) STARTED
+    static files STARTED
+    url patterns for index page DONE
     model(s), make migrations
     admin class for each model
     views

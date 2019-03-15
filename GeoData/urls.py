@@ -18,6 +18,6 @@ from django.urls import path
 from heatmap import views
 
 urlpatterns = [
-    # path('', views.index, name='home'),
+    path('', views.index, name='home'),
     path('admin/', admin.site.urls),
 ]

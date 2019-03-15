@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import LatLong
 
-# Register your models here.
+class LatLongAdmin(admin.ModelAdmin):
+    model = LatLong
+    list_display = ('latitude', 'longitude')
+
+admin.site.register(LatLong, LatLongAdmin)

@@ -8,6 +8,7 @@ from django.core.management.base import BaseCommand
 
 import pandas as pd
 # import io  (used in truncated-data test)
+import geojson
 
 class Command(BaseCommand):
 
@@ -21,5 +22,49 @@ class Command(BaseCommand):
         # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
         # Parses from entire csv file:
         df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
-        # saved_lat = df.latitude
-        print(df)
+        lat = df.latitude
+        long = df.longitude
+        return(df)
+
+
+# Found the following solution from https://gis.stackexchange.com/questions/220997/pandas-to-geojson-multiples-points-features-with-python
+
+# Original is commented below; my adaptation follow.
+
+# def data2geojson(df):
+#     features = []
+#     insert_features = lambda X: features.append(
+#             geojson.Feature(geometry=geojson.Point((X["long"],
+#                                                     X["lat"],
+#                                                     X["elev"])),
+#                             properties=dict(name=X["name"],
+#                                             description=X["description"])))
+#     df.apply(insert_features, axis=1)
+#     with open('map1.geojson', 'w', encoding='utf8') as fp:
+#         geojson.dump(geojson.FeatureCollection(features), fp, sort_keys=True, ensure_ascii=False)
+
+# col = ['lat','long','elev','name','description']
+# data = [[-29.9953,-70.5867,760,'A','Place ñ'],
+#         [-30.1217,-70.4933,1250,'B','Place b'],
+#         [-30.0953,-70.5008,1185,'C','Place c']]
+
+# df = pd.DataFrame(data, columns=col)
+
+# data2geojson(df)
+
+def data2geojson(df):
+    features = []
+    insert_features = lambda X: features.append(
+        geojson.Feature(geometry=geojson.Point((X["long"], X["lat"], X["dens"]))))
+    df.apply(insert_features, axis=1)
+    with open('map1.geojson', 'w', encoding='utf8') as fp:
+        geojson.dump(geojson.FeatureCollection(features), fp, sort_keys=True, ensure_ascii=False)
+
+col = ['lat', 'long', 'dens']
+# data = [[-29.9953,-70.5867,760,'A','Place ñ'],
+#         [-30.1217,-70.4933,1250,'B','Place b'],
+#         [-30.0953,-70.5008,1185,'C','Place c']]
+
+df = pd.DataFrame(data, columns=col)
+
+data2geojson(df)

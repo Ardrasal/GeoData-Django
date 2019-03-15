@@ -43,12 +43,12 @@ Steps:
     Create GeoJSON file https://pypi.org/project/geojson/
 
 4) Finish Django REST Framework buildout
-    html templates (index, etc) STARTED
+    html templates (index, etc) STARTED - Need to update access token
     static files STARTED
     url patterns for index page DONE
-    model(s), make migrations
-    admin class for each model
-    views
+    model(s), make migrations DONE/may need more fields
+    admin class for each model DONE
+    views DONE
     api app: views, serializers, urls
 
 5) Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box (may need to fine tune resolution of data to improve performance) 

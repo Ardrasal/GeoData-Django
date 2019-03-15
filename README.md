@@ -7,7 +7,7 @@ Issues:
 Steps:
 
 1) Set up Repo on GitHub DONE
-	Create Django REST framework project, pipenv install packages and update    settings using Django Quickstart DONE
+	Create Django REST framework project, pipenv install packages and update settings using Django Quickstart DONE
 	Import IPv4 file and set to ignore DONE
 
 2) Research how to access csv file in Django DONE
@@ -15,8 +15,6 @@ Steps:
     Make it work in Python shell DONE
 
     Management command to load csv file DONE
-
-    Research models for Latitude and Longitude - IN PROGRESS (not added yet/    may need more fields)
 
     Test if can parse lat/long data from top three lines of csv DONE
 
@@ -34,14 +32,26 @@ Steps:
 	get latitude and longitude information DONE
 
 3) Research MapBox
-    Make lat and long columns fit mapbox API RESEARCH
+    Make lat and long columns fit mapbox API  RESEARCH
     Watched 'How to Upload Data in Mapbox Studio' DONE
+        Notes from video: mapbox.com/studio/datasets; new dataset, upload, drop GeoJSON, JSON or csv file
     Need GeoJSON, JSON, or csv file
         (csv will be too large)
     Research GeoJSON
-    Create GeoJSON or JSON file
+        Read Using GeoJSON with Leaflet https://leafletjs.com/examples/geojson/ DONE
+        Using GeoJSON with a Bounding Box https://tools.ietf.org/html/rfc7946#section-5
+    Create GeoJSON file https://pypi.org/project/geojson/
 
-4) Define a REST endpoint that returns a list of coordinates within a           geographic coordinate bounding box (may need to fine tune resolution of         data to improve performance) 
+4) Finish Django REST Framework buildout
+    html templates (index, etc)
+    static files
+    url patterns for index page
+    model(s), make migrations
+    admin class for each model
+    views
+    api app: views, serializers, urls
+
+5) Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box (may need to fine tune resolution of data to improve performance) 
 	Research REST endpoint
 	Write code to return list of coordinates
 		use Leaflet and Leaflet.heat libraries and others to draw geographical data on a map in the browser
@@ -49,10 +59,10 @@ Steps:
 	Bound in geo bounding box such as MapBox (free tier)
 	Opt: fine tune data
 
-5) Use REST endpoint in a single-page JavaScript application to display data    to user
+6) Use REST endpoint in a single-page JavaScript application to display data to user
 	Code REST endpoint in JS (user can zoom into map and see ipv4 data)
 
-6) Deploy to Heroku
+7) Deploy to Heroku
 
 BONUS
 

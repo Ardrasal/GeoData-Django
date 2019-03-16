@@ -12,6 +12,8 @@ pandas = "*"
 numpy = "*"
 django-pandas = "*"
 djangorestframework = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 

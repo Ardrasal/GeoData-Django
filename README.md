@@ -84,6 +84,7 @@ This endpoint requires a token with styles:list scope.
     Code REST endpoint in JS (user can zoom into map and see ipv4 data)
 
 7) Deploy to Heroku
+    Checked that Heroku was installed, and upgraded from 7.18.10 to 7.22.7 DONE
 
 BONUS
 

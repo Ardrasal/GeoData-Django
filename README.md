@@ -7,10 +7,12 @@ Issues:
 Steps:
 
 1) Set up Repo on GitHub DONE
-	Create Django REST framework project, pipenv install packages and update settings using Django Quickstart DONE
+	
+    Create Django REST framework project, pipenv install packages and update settings using Django Quickstart DONE
 	Import IPv4 file and set to ignore DONE
 
 2) Research how to access csv file in Django DONE
+    
     Write the python script DONE
     Make it work in Python shell DONE
 
@@ -32,7 +34,7 @@ Steps:
 	get latitude and longitude information DONE
 
 3) Research MapBox
-    Make lat and long columns fit mapbox API  RESEARCH
+    
     Watched 'How to Upload Data in Mapbox Studio' DONE
         Notes from video: mapbox.com/studio/datasets; new dataset, upload, drop GeoJSON, JSON or csv file
     Need GeoJSON, JSON, or csv file
@@ -40,9 +42,15 @@ Steps:
     Research GeoJSON
         Read Using GeoJSON with Leaflet https://leafletjs.com/examples/geojson/ DONE
         Using GeoJSON with a Bounding Box https://tools.ietf.org/html/rfc7946#section-5
+    Make lat and long columns fit mapbox API  RESEARCH
+        Read about MapBox GL JS (JS library) https://docs.mapbox.com/mapbox-gl-js/api/
+        Read more about Leaflet.heat
+        And read https://docs.mapbox.com/mapbox.js/api/v3.2.0/
+        Choose one: 
     Create GeoJSON file https://pypi.org/project/geojson/
 
 4) Finish Django REST Framework buildout
+    
     html templates (index, etc) STARTED - Need to update access token
     static files STARTED
     url patterns for index page DONE
@@ -52,7 +60,8 @@ Steps:
     api app: views, serializers, urls
 
 5) Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box (may need to fine tune resolution of data to improve performance) 
-	Research REST endpoint
+	
+    Research REST endpoint
 	Write code to return list of coordinates
 		use Leaflet and Leaflet.heat libraries and others to draw geographical data on a map in the browser
 
@@ -60,7 +69,8 @@ Steps:
 	Opt: fine tune data
 
 6) Use REST endpoint in a single-page JavaScript application to display data to user
-	Code REST endpoint in JS (user can zoom into map and see ipv4 data)
+	
+    Code REST endpoint in JS (user can zoom into map and see ipv4 data)
 
 7) Deploy to Heroku
 

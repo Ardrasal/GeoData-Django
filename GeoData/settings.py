@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # My Apps
     'heatmap',
+    'api',
 
     # 3rd Party Apps
     'django_extensions',

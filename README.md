@@ -43,11 +43,22 @@ Steps:
         Read Using GeoJSON with Leaflet https://leafletjs.com/examples/geojson/ DONE
         Using GeoJSON with a Bounding Box https://tools.ietf.org/html/rfc7946#section-5
     Make lat and long columns fit mapbox API  RESEARCH
-        Read about MapBox GL JS (JS library) https://docs.mapbox.com/mapbox-gl-js/api/
+        Read about MapBox GL JS (JS library) https://docs.mapbox.com/mapbox-gl-js/api/ DONE
         Read more about Leaflet.heat
         And read https://docs.mapbox.com/mapbox.js/api/v3.2.0/
-        Choose one: 
+        Choose one: will try MapBox GL JS, because it has a nice tutorial to follow.
+            May use:
+                heatmap-density
+                zoom
+        Choose a Style: mapbox://styles/mapbox/satellite-streets-v11
+            $ curl "https://api.mapbox.com/styles/v1/ardrasa1?access_token=YOUR_MAPBOX_ACCESS_TOKEN
+This endpoint requires a token with styles:list scope.
+"
+        
     Create GeoJSON file https://pypi.org/project/geojson/
+        In my Quizzer group project, I used this command to create a json file from data quizzes I had created in my database. Then had my teammates drop their databases and run command so they would have identical sample data: [$ psql][DROP DATABASE flashcards][createdb flashcards][control-D to exit][$ ./manage.py loaddata sample_data.json]
+        
+        Figure out how to transfer ID & latlong data to GeoJSON.
 
 4) Finish Django REST Framework buildout
     
@@ -57,7 +68,7 @@ Steps:
     model(s), make migrations DONE/may need more fields
     admin class for each model DONE
     views DONE
-    api app: views, serializers, urls
+    api app: views, serializers, urls IN PROGRESS
 
 5) Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box (may need to fine tune resolution of data to improve performance) 
 	

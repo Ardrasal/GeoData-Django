@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 "psycopg2" = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
@@ -14,6 +13,7 @@ django-pandas = "*"
 djangorestframework = "*"
 gunicorn = "*"
 django-heroku = "*"
+Django = "*"
 
 [dev-packages]
 

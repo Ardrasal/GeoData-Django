@@ -11,7 +11,13 @@ Then tried $ git push heroku HEAD:master
 --it worked!
 
 3) I got this error code when trying to launch heroku site: code=H10 desc="App crashed", and scrolling up in traceback found: ModuleNotFoundError: No module named 'geodata-django'. I did a project-wide search for 'geodata-django' and found that I had entered it in Procfile as 'web: gunicorn geodata-django.wsgi'. Tried replacing 'geodata-django' with 'GeoData' but got the same message: No module named 'geodata-django'. Searched online and found https://devcenter.heroku.com/articles/python-pip which addresses how to get heroku to recognize any requirements that are installed locally. Used this command (found on stackoverflow when searching how to make a requirements.txt): pip freeze > requirements.txt . Still the same error. Re-ordered apps in settings, same error. Tried the instructions from https://help.heroku.com/BWJ7QYTF/why-am-i-seeing-importerror-no-module-named-site-when-deploying-a-python-app but didn't work. Reviewed heroku set-up here: https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true and tried 
-[$ heroku ps:scale web=1] to ensure that at least one instance of the app is running and got a positive response [Scaling dynos... done, now running web at 1:Free].
+[$ heroku ps:scale web=1] to ensure that at least one instance of the app is running and got a positive response [Scaling dynos... done, now running web at 1:Free]. Tried restarting heroku. Tried connecting a psql session with my remote database: 20:42 $ heroku pg:psql
+--> Connecting to postgresql-polished-87072
+psql (11.1, server 11.2 (Ubuntu 11.2-1.pgdg16.04+1))
+SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+blooming-journey-52100::DATABASE=>
 
 Steps:
 

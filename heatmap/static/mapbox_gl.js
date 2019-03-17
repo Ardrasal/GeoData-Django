@@ -8,8 +8,6 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
       zoom: 11
     });
 
-   // we will add more code here in the next steps
-
 // CODE BELOW is from https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/ 
 // Pasting here as a guide to be heavily cut and adapted.
 
@@ -17,7 +15,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
 // map.on('load', function() {
 // // Add a geojson point source.
 // // Heatmap layers also work with a vector tile source.
-// map.addSource('earthquakes', {
+// map.addSource('myipv4geojsonfile', {
 // "type": "geojson",
 // "data": "https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
 // });

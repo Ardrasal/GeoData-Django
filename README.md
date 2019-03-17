@@ -53,7 +53,11 @@ $ web: gunicorn geodata.wsgi
 (Progress! 'no module named geodata' error.)
 Repeated above with web: gunicorn GeoData.wsgi (New error! ModuleNotFoundError: No module named 'GeoData.heroku_settings' And that's right, there is no module named that (commented out). Wow, I've been at this for 8 hours minus a 2 hour dinner break. But it's fun because I'm excited to learn more at TransLoc!)
 
-11. Uncommented 'heroku_settings.py', pushed to git and to heroku. Currently getting 'no module named geodata' error. Will set this aside for now to work on the map.
+12. Uncommented 'heroku_settings.py', pushed to git and to heroku. Got 'Error while running '$ python manage.py collectstatic --noinput'.' Tried adding a css file under 'staticfiles'.
+
+13. Currently getting 'no module named geodata' error. Will set this aside for now to work on the map.
+
+
 
 STEPS to Solve the Code Challenge:
 

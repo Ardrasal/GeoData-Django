@@ -115,6 +115,8 @@ STEPS to Solve the Code Challenge:
 
         And read https://docs.mapbox.com/mapbox.js/api/v3.2.0/
 
+        Note that Leaflet and Mapbox use the reverse order of Longitude, Latitude.
+
         Choose one: will try MapBox GL JS, because it has a nice tutorial to follow.
 
             May use:
@@ -127,9 +129,10 @@ This endpoint requires a token with styles:list scope.
 "
         
     Create GeoJSON file https://pypi.org/project/geojson/
-        In my Quizzer group project, I used this command to create a json file from data quizzes I had created in my database. Then had my teammates drop their databases and run command so they would have identical sample data: [$ psql][DROP DATABASE flashcards][createdb flashcards][control-D to exit][$ ./manage.py loaddata sample_data.json]
+        In my Quizzer group project, I used a dumpdata command to create a json file from data quizzes I had created in my database. Then had my teammates drop their databases and run command so they would have identical sample data: [$ psql][DROP DATABASE flashcards][createdb flashcards][control-D to exit][$ ./manage.py loaddata sample_data.json]
+        Researched and found that dumpdata command only creates JSON, not GeoJSON.
         
-        Figure out how to transfer ID & latlong data to GeoJSON.
+        It can be done with GeoPandas -> GeoJSON
 
 4) Finish Django REST Framework buildout
     

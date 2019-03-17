@@ -43,9 +43,14 @@ blooming-journey-52100::DATABASE=>
 I figured out the problem: the Procfile needs to read 'web: gunicorn geodata.wsgi'. 
 8. I changed it (again), committed and pushed it, and restarted heroku a few times. However heroku continues to call for 'web: gunicorn geodata-django.wsgi' and give the 'no module found named geodata-django' error. Googling this issue only leads to one solution which I've already tried (committing and pushing the correcting to git and 'heroku restart'). 
 
-9. Tried writing to the Procfile using 'echo "web: python app.py" > Procfile' in command line. This was a cool trick that I'm glad I got to try, but unfortunately same result.
+9. Tried writing to the Procfile using 'echo "web: python app.py" > Procfile' in command line. This was a cool trick that I'm glad I got to try, but unfortunately same result. https://stackoverflow.com/questions/15790691/procfile-not-found-heroku-python-app
 
-10. Deleting heroko app.
+10. From https://stackoverflow.com/questions/29481506/heroku-procfile-not-working tried $ heroku run bash
+$ cat Procfile
+output --> web: gunicorn geodata-django.wsgi (and no module named yada yada)
+$ web: gunicorn geodata.wsgi
+(Progress! 'no module named geodata' error.)
+Repeated above with web: gunicorn GeoData.wsgi (New error! ModuleNotFoundError: No module named 'GeoData.heroku_settings' And that's right, there is no module named that. Wow, I've been at this for 8 hours minus a 2 hour dinner break. But it's fun because I'm excited to learn more at TransLoc!)
 
 
 STEPS to Solve the Code Challenge:

@@ -1,25 +1,52 @@
 # GeoData-Django
 
-Issues:
+ISSUES that arose:
 
-1) The csv file was too large for GitHub, so I added it to my .gitignore file, and used 'git reset --soft HEAD^' and 'git reset HEAD <heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv' to go back to prior commits and remove the file from staging.
+1) CSV
 
-2) I got this error when attempting to deply to Heroku [14:42 $ git push heroku setup-heroku:master
+The csv file was too large for GitHub, so I added it to my .gitignore file, and used 'git reset --soft HEAD^' and 'git reset HEAD <heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv' to go back to prior commits and remove the file from staging.
+
+2) MINOR HEROKU ERROR
+
+I got this error when attempting to deploy to Heroku [14:42 $ git push heroku setup-heroku:master
 error: src refspec setup-heroku does not match any] and remembered that I'm supposed to deploy from the master branch. Updated master branch and switched to master--didn't work.
 Then tried adding a file (touch notes), commiting, and trying again (based on several answers on stackoverflow)--also didn't work.
 Then tried $ git push heroku HEAD:master 
 --it worked!
 
-3) I got this error code when trying to launch heroku site: code=H10 desc="App crashed", and scrolling up in traceback found: ModuleNotFoundError: No module named 'geodata-django'. I did a project-wide search for 'geodata-django' and found that I had entered it in Procfile as 'web: gunicorn geodata-django.wsgi'. Tried replacing 'geodata-django' with 'GeoData' but got the same message: No module named 'geodata-django'. Searched online and found https://devcenter.heroku.com/articles/python-pip which addresses how to get heroku to recognize any requirements that are installed locally. Used this command (found on stackoverflow when searching how to make a requirements.txt): pip freeze > requirements.txt . Still the same error. Re-ordered apps in settings, same error. Tried the instructions from https://help.heroku.com/BWJ7QYTF/why-am-i-seeing-importerror-no-module-named-site-when-deploying-a-python-app but didn't work. Reviewed heroku set-up here: https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true and tried 
-[$ heroku ps:scale web=1] to ensure that at least one instance of the app is running and got a positive response [Scaling dynos... done, now running web at 1:Free]. Tried restarting heroku. Tried connecting a psql session with my remote database: 20:42 $ heroku pg:psql
---> Connecting to postgresql-polished-87072
+3) MAJOR HEROKU ERROR
+
+I got this error code when trying to launch the heroku site: code=H10 desc="App crashed", and scrolling up in traceback found: ModuleNotFoundError: No module named 'geodata-django'. I did a project-wide search for 'geodata-django' and found that I had entered it in Procfile as 'web: gunicorn geodata-django.wsgi'. 
+
+Tried the following: 
+
+1. replacing 'geodata-django' with 'GeoData' but got the same message: No module named 'geodata-django'. 
+
+2. Searched online and found https://devcenter.heroku.com/articles/python-pip which addresses how to get heroku to recognize any requirements that are installed locally. Used this command (found on stackoverflow when searching how to make a requirements.txt): pip freeze > requirements.txt . Still the same error (but this step needed to be done anyway). 
+
+3. Re-ordered apps in settings (put my apps at the bottom of 'installed apps'). 
+
+4. Tried the instructions from https://help.heroku.com/BWJ7QYTF/why-am-i-seeing-importerror-no-module-named-site-when-deploying-a-python-app 'heroku config'. 
+
+5. Reviewed heroku set-up: https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true and tried 
+[$ heroku ps:scale web=1] to ensure that at least one instance of the app is running. Got a positive response [Scaling dynos... done, now running web at 1:Free]. 
+
+6. Tried restarting heroku. 
+
+7. Tried connecting a psql session with my remote database: 20:42 $ heroku pg:psql
+output--> Connecting to gresql-polished-87072
 psql (11.1, server 11.2 (Ubuntu 11.2-1.pgdg16.04+1))
 SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
 Type "help" for help.
-
 blooming-journey-52100::DATABASE=>
 
-Steps:
+I figured out the problem: the Procfile needs to read 'web: gunicorn geodata.wsgi'. 
+8. I changed it (again), committed and pushed it, and restarted heroku a few times. However heroku continues to call for 'web: gunicorn geodata-django.wsgi' and give the 'no module found named geodata-django' error. Googling this issue only leads to one solution which I've already tried (committing and pushing the correcting to git and 'heroku restart'). 
+
+9. I may need to delete the heroku app and start again.
+
+
+STEPS to Solve the Code Challenge:
 
 1) Set up Repo on GitHub DONE
 	

@@ -57,6 +57,9 @@ Repeated above with web: gunicorn GeoData.wsgi (New error! ModuleNotFoundError: 
 
 13. Currently getting 'no module named geodata' error. Will set this aside for now to work on the map.
 
+4.) DataFrame value error
+
+    [print(df)] works, but [return(df)] gets 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
 
 
 STEPS to Solve the Code Challenge:

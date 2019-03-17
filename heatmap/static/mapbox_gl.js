@@ -12,13 +12,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
 
 // CODE BELOW is from https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/ 
 // Pasting here as a guide to be heavily cut and adapted.
-mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvYXh3ZWYzdiJ9.xE_42JTgGbph9pLadldcKw';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/dark-v9',
-center: [-120, 50],
-zoom: 2
-});
+// mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvYXh3ZWYzdiJ9.xE_42JTgGbph9pLadldcKw';
+// var map = new mapboxgl.Map({
+// container: 'map',
+// style: 'mapbox://styles/mapbox/dark-v9',
+// center: [-120, 50],
+// zoom: 2
+// });
  
 map.on('load', function() {
 // Add a geojson point source.

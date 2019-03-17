@@ -1,1 +1,1 @@
-web: gunicorn geodata-django.wsgi
+web: gunicorn geodata.wsgi

@@ -39,14 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # My Apps
-    'heatmap',
-    'api',
-
     # 3rd Party Apps
     'django_extensions',
     'debug_toolbar',
     'rest_framework',
+
+    # My Apps
+    'heatmap',
+    'api',
 ]
 
 MIDDLEWARE = [

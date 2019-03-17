@@ -12,6 +12,11 @@ import geojson
 
 # https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/
 class Command(BaseCommand):
+    help = 'Pulls latitude and longitude data from csv file and converts it into a GeoJSON file'
+    # https://docs.python.org/3/library/argparse.html#module-argparse
+
+    def add_aruments(self, parser):
+        parser.add_argument('geojson', nargs='+')
 
     def handle(self, *args, **kwargs):
         # Truncated_data test:

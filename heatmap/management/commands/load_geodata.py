@@ -24,8 +24,8 @@ class Command(BaseCommand):
         df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
         # lat = df.latitude
         # long = df.longitude
-        # return(df)
-        print(df)
+        return(df)
+        # print(df)
 
 
 # Found the following solution from https://gis.stackexchange.com/questions/220997/pandas-to-geojson-multiples-points-features-with-python

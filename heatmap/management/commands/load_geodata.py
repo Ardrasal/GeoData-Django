@@ -9,7 +9,13 @@ from django.core.management.base import BaseCommand
 import pandas as pd
 # import io (used in truncated-data test)
 
+# https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/
 class Command(BaseCommand):
+    help = 'Pulls latitude and longitude data from csv file and converts it into a GeoJSON file'
+    # https://docs.python.org/3/library/argparse.html#module-argparse
+
+    def add_aruments(self, parser):
+        parser.add_argument('geojson', nargs='+')
 
     def handle(self, *args, **kwargs):
         # Truncated_data test:
@@ -25,5 +31,6 @@ class Command(BaseCommand):
         df = df[['latitude', 'longitude']]
         # df.head()
         print(df.any())
+
 
 #  Read 'How to use APIs with Pandas and store the results in Redshift' https://medium.com/@ericsalesdeandrade/how-to-call-rest-apis-with-pandas-and-store-the-results-in-redshift-2b35f40aa98f

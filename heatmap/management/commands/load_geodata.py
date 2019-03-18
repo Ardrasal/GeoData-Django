@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand
 
 import pandas as pd
 # import io (used in truncated-data test)
-# import geojson
 
 class Command(BaseCommand):
 
@@ -20,12 +19,11 @@ class Command(BaseCommand):
         # 1.0.1.0/24,1811017,1814991,,0,0,,24.4798,118.0819,50
         # '''
         # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
+
         # Parses from entire csv file:
         df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
-        # lat = df.latitude
-        # long = df.longitude
-        return(df)
-        # print(df)
+        df = df[['latitude', 'longitude']]
+        # df.head()
+        print(df.any())
 
-
-# Found the following solution from https://gis.stackexchange.com/questions/220997/pandas-to-geojson-multiples-points-features-with-python
+#  Read 'How to use APIs with Pandas and store the results in Redshift' https://medium.com/@ericsalesdeandrade/how-to-call-rest-apis-with-pandas-and-store-the-results-in-redshift-2b35f40aa98f

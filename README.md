@@ -59,8 +59,37 @@ Repeated above with web: gunicorn GeoData.wsgi (New error! ModuleNotFoundError: 
 
 4.) DataFrame value error
 
+    Problem: In load_geodata.py,
     [print(df)] works, but [return(df)] gets 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
 
+    Tried: 
+        1. df = df[['latitude', 'longitude']]
+        df.head() -- no errors
+        print(df.head()) -- outputs top 5 rows
+          
+            latitude  longitude
+        0  -35.5016   138.7819
+        1   24.4798   118.0819
+        2   24.4798   118.0819
+        3  -33.4940   143.2104
+        4   23.1167   113.2500
+
+        2. print(df.all()) -- outputs 
+        latitude     False
+        longitude    False
+        dtype: bool
+
+        3. print(df.bool()) -- outputs
+        ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+
+        4. print(df.any()) -- outputs
+        latitude     True
+        longitude    True
+        dtype: bool
+
+    Solution: 
+
+5.) Problem: Need to figure out how to get latitude and longiture data saved through the Model, so it can then be serialized and written to json.
 
 STEPS to Solve the Code Challenge:
 

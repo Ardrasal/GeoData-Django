@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand
 
 import pandas as pd
 # import io (used in truncated-data test)
-import geojson
 
 # https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/
 class Command(BaseCommand):
@@ -26,32 +25,12 @@ class Command(BaseCommand):
         # 1.0.1.0/24,1811017,1814991,,0,0,,24.4798,118.0819,50
         # '''
         # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
+
         # Parses from entire csv file:
         df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
-        # lat = df.latitude
-        # long = df.longitude
-        # return(df)
-        print(df)
+        df = df[['latitude', 'longitude']]
+        # df.head()
+        print(df.any())
 
 
-# Found the following solution from https://gis.stackexchange.com/questions/220997/pandas-to-geojson-multiples-points-features-with-python
-
-def data2geojson(df):
-    features = []
-    insert_features = lambda X: features.append(
-        geojson.Feature(geometry=geojson.Point((X["longitude"], X["latitude"]))))
-    df.apply(insert_features, axis=1)
-    with open('heatmap.geojson', 'w', encoding='utf8') as fp:
-        geojson.dump(geojson.FeatureCollection(features), fp, sort_keys=True, ensure_ascii=False)
-
-col = ['latitude', 'longitude']
-data = [[-29.9953, -70.5867],
-        [-30.1217, -70.4933],
-        [-30.0953, -70.5008]]
-
-df = pd.DataFrame(data, columns=col)
-
-data2geojson(df)
-# print(data2geojson(df))
-
-# Or can try this tutorial: https://medium.com/@djosephhenri/mapping-detroits-high-poverty-areas-and-their-access-to-public-transit-using-geopandas-mapbox-72fa21a0bd79
+#  Read 'How to use APIs with Pandas and store the results in Redshift' https://medium.com/@ericsalesdeandrade/how-to-call-rest-apis-with-pandas-and-store-the-results-in-redshift-2b35f40aa98f

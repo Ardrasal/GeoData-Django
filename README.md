@@ -55,12 +55,11 @@ ISSUES that arose:
 
     13. Currently getting 'no module named geodata' error. Will set this aside for now to work on the map.
 
-    Solution: (Next will delete heroku app and create new one.)
+    Solution: It needed to be: web: gunicorn GeoData.wsgi It's working now. 
 
 4.) DATAFRAME VALUE ERROR
 
     Problem: [print(df)] works, but [return(df)] gets 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
-
 
     Problem: In load_geodata.py,
     [print(df)] works, but [return(df)] gets 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
@@ -90,7 +89,26 @@ ISSUES that arose:
         longitude    True
         dtype: bool
 
-    Solution: 
+    Solution: Scrapping pandas. Goodbye beautiful code! I'll never forget you!
+
+    In memoriam:
+
+    import pandas as pd
+    # import io
+
+    def handle(self, *args, **kwargs):
+        # Truncated_data test:
+        # truncated_data = '''
+        # network,geoname_id,registered_country_geoname_id,represented_country_geoname_id,is_anonymous_proxy,is_satellite_provider,postal_code,latitude,longitude,accuracy_radius
+        # 1.0.0.0/24,2070667,2077456,,0,0,5214,-35.5016,138.7819,100
+        # 1.0.1.0/24,1811017,1814991,,0,0,,24.4798,118.0819,50
+        # '''
+        # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
+
+        # Parses from entire csv file:
+        df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
+        df = df[['latitude', 'longitude']]
+        df.head() # just top 5 rows
 
 5.) Problem: Need to figure out how to get latitude and longiture data saved through the Model, so it can then be serialized and written to json.
 
@@ -179,12 +197,13 @@ STEPS to Solve the Code Challenge:
         serializers DONE
         urls IN PROGRESS
 
-5) Deploy to Heroku
+5) Deploy to Heroku DONE
+
+    https://blooming-journey-52100.herokuapp.com/
 
     Create requirements.txt for dependencies, install heroku using class notes DONE
 
-    Fix deployment crashing problem, probably delete heroku app and start again
-    IN PROGRESS
+    Fix deployment crashing problem DONE
 
 BONUS/Opt
 

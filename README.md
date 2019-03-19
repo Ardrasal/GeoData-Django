@@ -118,6 +118,17 @@ ISSUES that arose:
 
     Solution:  I commented out all of the management command and ran this:  LatLong.objects.all().delete()
 
+7) Problem:   .../python3.7/site-packages/django/db/models/fields/__init__.py", line 1559, in to_python
+    params={'value': value},
+django.core.exceptions.ValidationError: ["'' value must be a decimal number."]
+
+    Tried: Looking through the cvs, I can see that some of the lat/long values are whole numbers. Checking to see if that is throwing error, and revisiting float vs decimal fields for model.
+
+    Solution: try:
+                    LatLong.objects.create(latitude=row['latitude'], longitude=row['longitude'])
+                except ValidationError:
+                    pass
+
 STEPS to Solve the Code Challenge:
 
 1) Set up Repo on GitHub DONE
@@ -162,6 +173,8 @@ STEPS to Solve the Code Challenge:
 
 	get latitude and longitude information DONE
 
+    Create model objects DONE (25 minutes to load!)
+
 3) Research MapBox
     
     Watched 'How to Upload Data in Mapbox Studio' DONE
@@ -196,11 +209,12 @@ STEPS to Solve the Code Challenge:
 
     Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box.  Research endpoint requirements. TO DO
        
-    url for api in heatmap.urls TO DO
+    url for api in heatmap.urls DONE
 
     api app: 
         views TO DO
         serializers DONE
+        https://www.django-rest-framework.org/api-guide/fields/#floatfield
         urls IN PROGRESS
 
 5) Deploy to Heroku DONE

@@ -3,12 +3,12 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
-      // TransLoc :)
+      // Centers on TransLoc :)
       center: [-78.839185, 35.873970],
-      zoom: 11
+      zoom: 8
     });
 
-      // Adds marker to an awesome place to work
+      // Adds marker to an awesome place!
       var popup = new mapboxgl.Popup()
       .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
       

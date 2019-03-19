@@ -110,7 +110,13 @@ ISSUES that arose:
         df = df[['latitude', 'longitude']]
         df.head() # just top 5 rows
 
-5.) Problem: Need to figure out how to get latitude and longiture data saved through the Model, so it can then be serialized and written to json.
+5.) Problem: Need to figure out how to get latitude and longiture data saved    through the Model, so it can then be serialized and written to json. 
+
+    Solution: Used the csv DictReader to isolate lat and long and create model objects.
+
+6.) Problem: 109k+ model objects created during testing that need to be         deleted before creating from full csv file.
+
+    Solution:  I commented out all of the management command and ran this:  LatLong.objects.all().delete()
 
 STEPS to Solve the Code Challenge:
 

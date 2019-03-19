@@ -8,6 +8,15 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
       zoom: 11
     });
 
+      // Adds marker to an awesome place to work
+      var popup = new mapboxgl.Popup()
+      .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
+      
+      var marker = new mapboxgl.Marker()
+      .setLngLat([-78.839185, 35.873970])
+      .setPopup(popup)
+      .addTo(map);
+
 // CODE BELOW is from https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/ 
 // Pasting here as a guide to be heavily cut and adapted.
 

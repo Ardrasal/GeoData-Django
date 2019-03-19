@@ -3,6 +3,9 @@ from rest_framework.response import Response
 from rest_framework import generics
 from heatmap.models import LatLong
 from .serializers import LatLongSerializer
+from django.http import HttpResponse, JsonResponse
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
 # creates a read only endpoint for all LatLong instances
 class LatLongAPIView(generics.ListAPIView):
@@ -17,4 +20,4 @@ def latlong_list(request):
     if request.method == 'GET':
         latlongs = LatLong.objects.all()
         serializer = LatLongSerializer(latlongs, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data, safe=False)

@@ -132,3 +132,4 @@ dmypy.json
 .vscode
 .GeoLite2-City-CSV_20190312
 .GeoLite2-City-Blocks-IPv4.csv
+mydb.dump

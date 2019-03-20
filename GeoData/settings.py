@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'djgeojson',
+    'django.contrib.gis',
 
     # My Apps
     'heatmap',

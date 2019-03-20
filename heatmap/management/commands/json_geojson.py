@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
         json.dumps(feature)
 # First tested 'heatmap/test.json'.
-        with open('', 'w') as stream:
+        with open('https://blooming-journey-52100.herokuapp.com/api/', 'w') as stream:
             json.dump(feature, stream, indent=2)
         print(r.rep(feature))
 

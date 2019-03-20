@@ -187,6 +187,18 @@ STEPS to Solve the Code Challenge:
 
             ** RESEARCH: May be a problem with MapBox GL JS--doesn't seem to accept JSON. Can use Leaflet-heat but may not be compatible with MapBox GL. Can use with Leaflet JS. **
 
+                Convert JSON to GeoJSON TO DO
+
+Determine order of lat, long TO DO
+
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  }
+}
+
 	Bound in geo bounding box such as MapBox (free tier) DONE
 
     Make lat and long columns fit mapbox API  RESEARCH

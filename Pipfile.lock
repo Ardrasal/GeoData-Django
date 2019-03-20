@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "72815b3e91f1a40fb0576c788b4c2359e7910e00f54ef2250448ad7b5a634e87"
+            "sha256": "26e82c49db377de414b10b34818b5c4abaf9d6d250f6b4ce3b27cf588b768571"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -60,6 +60,13 @@
             ],
             "index": "pypi",
             "version": "==2.1.6"
+        },
+        "django-geojson": {
+            "hashes": [
+                "sha256:7a892e1f8f17f10ffbced9f737c347eae975eb340cd3f00bc9e3896ecce4135d"
+            ],
+            "index": "pypi",
+            "version": "==2.12.0"
         },
         "django-heroku": {
             "hashes": [

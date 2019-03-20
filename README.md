@@ -212,10 +212,10 @@ STEPS to Solve the Code Challenge:
     url for api in heatmap.urls DONE
 
     api app: 
-        views TO DO
+        views DONE
         serializers DONE
         https://www.django-rest-framework.org/api-guide/fields/#floatfield
-        urls IN PROGRESS
+        urls DONE
 
 5) Deploy to Heroku DONE
 

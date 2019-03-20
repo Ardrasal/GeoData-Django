@@ -183,7 +183,9 @@ STEPS to Solve the Code Challenge:
 
         Will need to be JSON from the API to satisfy assignment requirements TO DO
 
-    use Leaflet and Leaflet.heat libraries and others (MapBox GL) to draw geographical data on a map in the browser IN PROGRESS
+    use Leaflet and Leaflet-heat libraries and others (MapBox GL) to draw geographical data on a map in the browser IN PROGRESS
+
+            ** RESEARCH: May be a problem with MapBox GL JS--doesn't seem to accept JSON. Can use Leaflet-heat but may not be compatible with MapBox GL. Can use with Leaflet JS. **
 
 	Bound in geo bounding box such as MapBox (free tier) DONE
 
@@ -212,10 +214,10 @@ STEPS to Solve the Code Challenge:
     url for api in heatmap.urls DONE
 
     api app: 
-        views TO DO
+        views DONE
         serializers DONE
         https://www.django-rest-framework.org/api-guide/fields/#floatfield
-        urls IN PROGRESS
+        urls DONE
 
 5) Deploy to Heroku DONE
 

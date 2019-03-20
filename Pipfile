@@ -15,6 +15,7 @@ gunicorn = "*"
 django-heroku = "*"
 Django = "*"
 geojson = "*"
+httpie = "*"
 
 [dev-packages]
 

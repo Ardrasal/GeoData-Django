@@ -219,6 +219,8 @@ Determine order of lat, long TO DO
 
         Choose a Style: mapbox://styles/mapbox/satellite-streets-v11 DONE
 
+        Push database onto heroku.
+
 4) Django REST Framework buildout 
 
     Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box.  Research endpoint requirements. TO DO

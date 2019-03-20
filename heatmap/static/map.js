@@ -1,57 +1,15 @@
 // From index.html MapBox template.
-// Wrap map in an onload function. Heatlayer will callback to this function.
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvYXh3ZWYzdiJ9.xE_42JTgGbph9pLadldcKw';
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
-      // Centers on TransLoc :)
+      // Centers on TransLoc
       center: [-78.839185, 35.873970],
       zoom: 8
     });
-    
-
-          // Adds marker to an awesome place!
-        //   var popup = new mapboxgl.Popup()
-        //   .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
-          
-        // var marker = new mapboxgl.Marker()
-        //   .setLngLat([-78.839185, 35.873970])
-        //   .setPopup(popup)
-        //   .addTo(map);
-    
-        
-//         // Testing example from leaflet-heat with just lat, lng
-//         // Needs all of these:
-// "layers": [
-//   {
-//     "id": "water",
-//     "source": "mapbox-streets",
-//     "source-layer": "water",
-//     "type": "fill",
-//     "paint": {
-//       "fill-color": "#00ffff"
-//     }
-//   }
-// // ]
-//         var heat = L.heatLayer([
-//           [-78.839185, 35.773980, 0.2], // lat, lng
-//           ], 
-//           {radius: 25});
-//           console.log(map)
-//           console.log(heat)
-//           map.addLayer(heat);
-// })
-
-
-      
-
-// CODE BELOW is from https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/ 
-// Pasting here as a guide to be heavily cut and adapted.
-
  
 map.on('load', function() {
 // Add a geojson point source.
-// Heatmap layers also work with a vector tile source.
   map.addSource('test', {
   "type": "geojson",
   "data": {
@@ -59,11 +17,8 @@ map.on('load', function() {
     "geometry": {
       "type": "Point",
       "coordinates": [-78.839185, 35.773980]
-    },
-    
+    }
   }
-  // lat, lng, int
-
   });
   
   map.addLayer({
@@ -120,6 +75,8 @@ map.on('load', function() {
   9, 0
   ],
   }
-}
+},
+// 'waterway-label' in example
 );
-})
+// map.addLayer in example
+});

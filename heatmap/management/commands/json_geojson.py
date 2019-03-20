@@ -4,11 +4,14 @@
 
 from django.core.management.base import BaseCommand
 import json
+# limit print output for test
+import reprlib
 
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-
+        r = reprlib.Repr()
+        r.maxlist = 4
         feature = {
             "type": "Feature",
             "geometry": {
@@ -18,9 +21,9 @@ class Command(BaseCommand):
         }
 
         json.dumps(feature)
-
-        with open('heatmap/test.json', 'w') as stream:
+# First tested 'heatmap/test.json'.
+        with open('', 'w') as stream:
             json.dump(feature, stream, indent=2)
-        print(feature)
+        print(r.rep(feature))
 
 # outputs {'type': 'Feature', 'geometry': {'type': 'Point', 'coordinates': [125.6, 10.1]}}

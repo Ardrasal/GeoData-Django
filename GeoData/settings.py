@@ -133,11 +133,11 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+# https://www.django-rest-framework.org/api-guide/fields/
+# If set to False the representation will be left as a Decimal instance and the final representation will be determined by the renderer.
+# If unset, this will default to the same value as the COERCE_DECIMAL_TO_STRING setting, which is True unless set otherwise.
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES':
-    ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
+    'COERCE_DECIMAL_TO_STRING': False
 }
 
 # Activate django_heroku

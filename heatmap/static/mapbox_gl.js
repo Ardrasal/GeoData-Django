@@ -1,12 +1,21 @@
-// Brought over from index.html MapBox template.
+// From index.html MapBox template.
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvYXh3ZWYzdiJ9.xE_42JTgGbph9pLadldcKw';
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
-      // TransLoc :)
+      // Centers on TransLoc :)
       center: [-78.839185, 35.873970],
-      zoom: 11
+      zoom: 8
     });
+
+      // Adds marker to an awesome place!
+    var popup = new mapboxgl.Popup()
+      .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
+      
+    var marker = new mapboxgl.Marker()
+      .setLngLat([-78.839185, 35.873970])
+      .setPopup(popup)
+      .addTo(map);
 
 // CODE BELOW is from https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/ 
 // Pasting here as a guide to be heavily cut and adapted.

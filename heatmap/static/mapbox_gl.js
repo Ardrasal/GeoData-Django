@@ -1,4 +1,4 @@
-// Brought over from index.html MapBox template.
+// From index.html MapBox template.
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvYXh3ZWYzdiJ9.xE_42JTgGbph9pLadldcKw';
     var map = new mapboxgl.Map({
       container: 'map',
@@ -9,10 +9,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
     });
 
       // Adds marker to an awesome place!
-      var popup = new mapboxgl.Popup()
+    var popup = new mapboxgl.Popup()
       .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
       
-      var marker = new mapboxgl.Marker()
+    var marker = new mapboxgl.Marker()
       .setLngLat([-78.839185, 35.873970])
       .setPopup(popup)
       .addTo(map);

@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 # from rest_framework.response import Response
 from rest_framework import generics
 from heatmap.models import LatLong
-from .serializers import LatLongSerializer
+# from .serializers import LatLongSerializer
 from django.http import JsonResponse
 # from rest_framework.renderers import JSONRenderer
 # from rest_framework.parsers import JSONParser

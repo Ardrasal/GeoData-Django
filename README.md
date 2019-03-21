@@ -129,6 +129,10 @@ django.core.exceptions.ValidationError: ["'' value must be a decimal number."]
                 except ValidationError:
                     pass
 
+8. Problem: Accidentally pushed data.dump file onto git. Deleted from project and from git, but git became frozen with file stuck in limbo somehow.
+
+    Solution: https://stackoverflow.com/questions/19573031/cant-push-to-github-because-of-large-file-which-i-already-deleted
+
 STEPS to Solve the Code Challenge:
 
 1) Set up Repo on GitHub DONE
@@ -232,6 +236,34 @@ Determine order of lat, long TO DO
         serializers DONE
         https://www.django-rest-framework.org/api-guide/fields/#floatfield
         urls DONE
+
+        Wednesday steps: 
+
+        1. Follow steps from link to dump data from database on to heroku (not git). Remove .json file from project.
+
+        2. Serialize model objects to output geojson; store them in an api endpoint.
+
+            serializers.py
+            api/views.py
+            api/urls.py
+
+        3. Push to heroku
+
+        4. Add api endpoint to map.addSource; check that it adds points on heat layer of map.
+
+        5. Check that requirements.txt is up to date.
+
+        6. Push to git
+
+        7. Push to heroku
+
+        8. Clean up notes on README.
+
+        9. Submit
+
+        10. Review all code to reinforce understanding of each aspect. 
+
+        11. Crush interview. :)
 
 5) Deploy to Heroku DONE
 

@@ -1,5 +1,5 @@
 // From index.html MapBox template.
-mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvYXh3ZWYzdiJ9.xE_42JTgGbph9pLadldcKw';
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0ajNvcHM5MnZ3YTQ0bnV5c3VqamZwciJ9.VpDVR48g023rga31i4YO_A';
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
@@ -7,18 +7,27 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0YTYzenJpMDduYTQzcDdvY
       center: [-78.839185, 35.873970],
       zoom: 8
     });
+
+//       // Adds marker to an awesome place!
+// var popup = new mapboxgl.Popup()
+//   .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
+      
+//   var marker = new mapboxgl.Marker()
+//     console.log("marker")
+//       .setLngLat([-78.839185, 35.873970])
+//       .setPopup(popup)
+//       .addTo(map);
+//       console.log("map")
  
 map.on('load', function() {
+  console.log("asdf")
 // Add a geojson point source.
   map.addSource('test', {
   "type": "geojson",
   "data": {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-78.839185, 35.773980]
+    "type": "FeatureCollection",
+    "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.839185, 35.873970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.765500,36.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.139185, 36.273970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-86.765500,35.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.332500, 45.583400]}}]
     }
-  }
   });
   
   map.addLayer({
@@ -79,4 +88,5 @@ map.on('load', function() {
 // 'waterway-label' in example
 );
 // map.addLayer in example
+console.log("api")
 });

@@ -1,70 +1,69 @@
 # GeoData-Django
 
+Heatmap Code Challenge
+
+It was a pleasure and also quite a challenge to work on this project. Below I have listed the issues that arose (in the order that they occurred), what I tried, and how I solved them. Then I list the steps that I broke down into smaller chunks to solve the challenge.
+
 ISSUES that arose:
 
 1) CSV
 
-    Problem: The csv file was too large for GitHub
+    Problem: The csv file was too large for GitHub.
 
     Solution: I added it to my .gitignore file, and used 'git reset --soft HEAD^' and 'git reset HEAD <heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv' to go back to prior commits and remove the file from staging.
 
-2) MINOR HEROKU ERROR
+2) HEROKU ERROR
 
-    Problem: I got this error when attempting to deploy to Heroku: [14:42 $ git push heroku setup-heroku:master  error: src refspec setup-heroku does not match any] and remembered that I should have deployed from the master branch. 
-
-    Solution: Updated master branch and switched to master. Committed and pushed to Git, and then to heroku.
-
-3) MAJOR HEROKU ERROR
-
-    Problem: I got this error code when trying to launch the heroku site: code=H10 desc="App crashed", and scrolling up in traceback found: ModuleNotFoundError: No module named 'geodata-django'. I did a project-wide search for 'geodata-django' and found that I had entered it in Procfile as 'web: gunicorn geodata-django.wsgi'. 
+    Problem: I got this error code when trying to launch the heroku site: code=H10 desc="App crashed", and scrolling up the traceback I found: ModuleNotFoundError: No module named 'geodata-django'. I did a project-wide search for 'geodata-django' and found that I had entered it in the Procfile as 'web: gunicorn geodata-django.wsgi'. 
 
     Tried: 
 
-    1. replacing 'geodata-django' with 'GeoData' but got the same message: No module named 'geodata-django'. 
+    1. I replaced 'geodata-django' with 'GeoData' but got the same message: No module named 'geodata-django'. 
 
-    2. Found https://devcenter.heroku.com/articles/python-pip which addresses how to get heroku to recognize any requirements that are installed locally. Used this command (found on stackoverflow when searching how to make a requirements.txt): pip freeze > requirements.txt . Still the same error (but this step needed to be done). 
+    2. Found https://devcenter.heroku.com/articles/python-pip which addresses how to get heroku to recognize any requirements that are installed locally. Used this command (found on stackoverflow when searching how to make a requirements.txt): pip freeze > requirements.txt . I still got the same error, but this step needed to be done anyway. 
 
-    3. Re-ordered apps in settings (put my apps at the bottom of 'installed apps'). 
+    3. I re-ordered my 'installed apps' in settings, and put 'my apps' at the bottom of the list. 
 
-    4. Tried the instructions from https://help.heroku.com/BWJ7QYTF/why-am-i-seeing-importerror-no-module-named-site-when-deploying-a-python-app 'heroku config'. 
+    4. I tried the instructions from https://help.heroku.com/BWJ7QYTF/why-am-i-seeing-importerror-no-module-named-site-when-deploying-a-python-app 'heroku config'. 
 
-    5. Reviewed heroku set-up: https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true and tried 
-    [$ heroku ps:scale web=1] to ensure that at least one instance of the app is running. Got a positive response [Scaling dynos... done, now running web at 1:Free]. 
+    5. I reviewed heroku set-up: https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true and tried 
+    [$ heroku ps:scale web=1] to ensure that at least one instance of the app is running. I got a positive response [Scaling dynos... done, now running web at 1:Free]. 
 
-    6. Restarted heroku 'heroku restart'.
+    6. I restarted heroku with 'heroku restart'.
 
-    7. Connected a psql session with my remote database: 20:42 $ heroku pg:psql
+    7. I connected a psql session with my remote database: 20:42 $ heroku pg:psql
     output (abbr.)--> Connecting to gresql-polished-87072
     psql
     blooming-journey-52100::DATABASE=>
 
-    I figured out the problem: the Procfile does need to read 'web: gunicorn geodata.wsgi'. 1st try was the right thing to do, but need to figure out why it didn't work.
+    At this point I figured out the problem: the Procfile does need to read 'web: gunicorn geodata.wsgi'. My 1st try was the right thing to do, but I needed to figure out why it didn't work.
 
-    8. I changed it (again), committed and pushed it, and restarted heroku a few times. However heroku continues to call for 'web: gunicorn geodata-django.wsgi' and give the 'no module found named geodata-django' error. Googling this issue only leads to one solution which I've already tried (committing and pushing the correcting to git and 'heroku restart'). 
+    8. I changed it (again), committed and pushed it, and restarted heroku a few times. However heroku continued to call for 'web: gunicorn geodata-django.wsgi' and give the 'no module found named geodata-django' error. Googling this issue only led to one solution which I'd already tried (committing and pushing the correction to git and then 'heroku restart'). 
 
-    9. Tried writing to the Procfile using 'echo "web: python app.py" > Procfile' in command line. This was a cool trick that I'm glad I got to try, but unfortunately same result. https://stackoverflow.com/questions/15790691/procfile-not-found-heroku-python-app
+    9. I tried writing to the Procfile using 'echo "web: python app.py" > Procfile' in command line. This was a cool trick that I'm glad I got to try, but unfortunately got the same result. https://stackoverflow.com/questions/15790691/procfile-not-found-heroku-python-app
 
-    10. From https://stackoverflow.com/questions/29481506/heroku-procfile-not-working tried $ heroku run bash
+    10. From https://stackoverflow.com/questions/29481506/heroku-procfile-not-working I tried $ heroku run bash
     $ cat Procfile
-    output --> web: gunicorn geodata-django.wsgi (and no module named yada yada)
+    output --> web: gunicorn geodata-django.wsgi (and no module named geodata-django)
+    I entered:
     $ web: gunicorn geodata.wsgi
-    (Progress! 'no module named geodata' error)
-    Repeated above with web: gunicorn GeoData.wsgi (New error! ModuleNotFoundError: No module named 'GeoData.heroku_settings') And that's right, there is no module named that (commented out). Wow, I've been at this for 8 hours minus a 2 hour dinner break. But it's fun because I'm excited to learn more at TransLoc. :)
+    (Progress! I got a 'no module named geodata' error.) I repeated these steps with web: gunicorn GeoData.wsgi (New error! ModuleNotFoundError: No module named 'GeoData.heroku_settings') And that's right, there was no module named that at the time (it was temporarily commented out).
 
-    12. Un-commented 'heroku_settings.py', pushed to git and to heroku. Got 'Error while running '$ python manage.py collectstatic --noinput'.' Tried adding a css file under 'static'.
-
-    13. Currently getting 'no module named geodata' error. Will set this aside for now to work on the map.
+    12. I un-commented 'heroku_settings.py', pushed to git and to heroku. Got 'Error while running '$ python manage.py collectstatic --noinput'.' I tried adding a css file under 'static'.
 
     Solution: It needed to be: web: gunicorn GeoData.wsgi It's working now. 
 
-4.) DATAFRAME VALUE ERROR
+    Lessons Learned: 
+    
+    I should make all apps, projects, and files lower case to reduce the chance of this type of error. And, I now thoroughly understand the heroku deployment and maintenance process. (In the past I had done no more than one deployment per project--I did not have experience with doing it frequently. I was following a guide and didn't have the process memorized. I pretty much do, now!)
 
-    Problem: [print(df)] works, but [return(df)] gets 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
+3.) DATAFRAME VALUE ERROR
 
     Problem: In load_geodata.py,
-    [print(df)] works, but [return(df)] gets 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
+    [print(df)] works, but [return(df)] gets a 'ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().'
 
     Tried: 
+
         1. df = df[['latitude', 'longitude']]
         df.head() -- no errors
         print(df.head()) -- outputs top 5 rows
@@ -89,7 +88,9 @@ ISSUES that arose:
         longitude    True
         dtype: bool
 
-    Solution: Scrapping pandas. Goodbye beautiful code! I'll never forget you!
+    Solution: 
+    
+    I consulted with Clinton, and he told me that pandas would be problematic for the future steps in this challenge. He suggested I use the simpler csv reader that I had previously rejected. Specifically, the DictReader. So I scrapped pandas. I spent many hours working with pandas in this project. Goodbye beautiful code! I'll never forget you!
 
     In memoriam:
 
@@ -110,134 +111,164 @@ ISSUES that arose:
         df = df[['latitude', 'longitude']]
         df.head() # just top 5 rows
 
-5.) Problem: Need to figure out how to get latitude and longiture data saved    through the Model, so it can then be serialized and written to json. 
+4.) SAVE LAT AND LONGS FROM CSV
 
-    Solution: Used the csv DictReader to isolate lat and long and create model objects.
+    Problem: 
 
-6.) Problem: 109k+ model objects created during testing that need to be         deleted before creating from full csv file.
+    I needed to figure out how to get the latitude and longiture data saved through the LatLong Model, so it could then be serialized and written to a json (or geojson) api endpoint. 
 
-    Solution:  I commented out all of the management command and ran this:  LatLong.objects.all().delete()
+    Solution: 
+    
+    I used the csv DictReader to isolate lat and long, and create model objects.
 
-7) Problem:   .../python3.7/site-packages/django/db/models/fields/__init__.py", line 1559, in to_python
-    params={'value': value},
-django.core.exceptions.ValidationError: ["'' value must be a decimal number."]
+5.) DELETE LARGE NUMBER OF TEST OBJECTS
 
-    Tried: Looking through the cvs, I can see that some of the lat/long values are whole numbers. Checking to see if that is throwing error, and revisiting float vs decimal fields for model.
+    Problem: 
 
-    Solution: try:
-                    LatLong.objects.create(latitude=row['latitude'], longitude=row['longitude'])
-                except ValidationError:
-                    pass
+    109k+ model objects were created during testing, that needed to be deleted before creating from full csv file of 3 million + objects.
 
-8. Problem: Accidentally pushed data.dump file onto git. Deleted from project and from git, but git became frozen with file stuck in limbo somehow.
+    Solution:  
+    
+    I commented out the code in the def handle management command function, and ran this instead: LatLong.objects.all().delete()
 
-    Solution: https://stackoverflow.com/questions/19573031/cant-push-to-github-because-of-large-file-which-i-already-deleted
+6.) VALIDATION ERROR
+
+    Problem:   
+
+    When running my management command to pull out latitudes and longitudes from the csv and create model objects, I got the following error:
+
+    '.../python3.7/site-packages/django/db/models/fields/__init__.py", line 1559, in to_python
+    params={'value': value}, django.core.exceptions.ValidationError: ["'' value must be a decimal number."]'
+
+    Tried: 
+    
+    I looked through the cvs, and saw that some of the lat/long values are whole numbers. I reasearched to see if that could throw the error (and it didn't look like it should). I researched again my choice to choose decimal field over float field. I decided that decimal field should be ok.
+
+    Solution: 
+    
+    To get around the error, I added this to my function:
+
+    try:
+        LatLong.objects.create(latitude=row['latitude'], longitude=row['longitude'])
+    except ValidationError:
+        pass
+
+7.) ACCIDENTAL LARGE FILE PUSH
+
+    Problem: 
+
+    I accidentally pushed data.dump file onto git. 
+    
+    Tried:
+    
+    I deleted the file from the project and from git, but git became frozen in a loop with the file stuck in limbo somehow.
+
+    Solution: 
+
+    I followed the steps in the link below:
+    
+    https://stackoverflow.com/questions/19573031/cant-push-to-github-because-of-large-file-which-i-already-deleted
+
 
 STEPS to Solve the Code Challenge:
 
-1) Set up Repo on GitHub DONE
-	
-    Create Django project, pipenv install packages and update settings using Django Quickstart DONE
-	Import IPv4 file and set to ignore DONE
+1) Set up Project
 
-    html templates (index, etc) - Need to update access token DONE
+    Create:
 
-    static files: 
-        CSS DONE
-        JavaScript IN PROGRESS
-            (Use REST endpoint in a single-page JavaScript application to display data to user)
-	
-    url patterns for index page DONE
+    - repo on GitHub
 
-    model(s), make migrations DONE/may need more fields
+    - Django project 
 
-    admin class for each model DONE
+    - html templates
 
-    views for index page DONE
+    - static files: 
+        CSS
+        JavaScript (finish at the end)
 
-2) Research how to access csv file in Django DONE
+	- urls
+
+    - model(s), make migrations
+
+    - admin class for each model
+
+    - views for index page
+
+2) Research how to access csv file in Django
     
-    Write the python script DONE
-    Make it work in Python shell DONE
+    Write the python script
 
-    Management command to load csv file DONE
+    Test in Python shell
 
-    Test if can parse lat/long data from top three lines of csv DONE
+    Create a management command to load csv file
 
-    Parse data from IPv4 file DONE
+    Test parsing lat/long data from sample (top three lines) of csv
+
+    Parse data from entire IPv4 file
 	
-		csv module: https://docs.python.org/3/library/csv.html NO
+        Decide between these two methods (initially chose pandas but later switched to csv Reader)
 
-	    Parse specific columns from csv file YES
-		https://stackoverflow.com/questions/16503560/read-specific-columns-from-a-csv-file-with-csv-module
+		    csv module: https://docs.python.org/3/library/csv.html 
 
-    import pandas as pd DONE
+	        Parse specific columns from csv file 
+		    https://stackoverflow.com/questions/16503560/read-specific-columns-from-a-csv-file-with-csv-module
 
-    Write code to return list of coordinates that can be used for JSON  IN PROGRESS
+    Write code to return list of coordinates that can be used for JSON
 
-	get latitude and longitude information DONE
-
-    Create model objects DONE (25 minutes to load!)
+    Create model objects (25 minutes to load!)
 
 3) Research MapBox
-    
-    Watched 'How to Upload Data in Mapbox Studio' DONE
 
-        Notes fromm video: mapbox.com/studio/datasets; new dataset, upload, drop GeoJSON, JSON or csv file TO DO
+    Must be JSON from the API to satisfy assignment requirements
 
-        Will need to be JSON from the API to satisfy assignment requirements TO DO
+    Use Leaflet and Leaflet-heat libraries or others (MapBox GL) to draw geographical data on a map in the browser IN PROGRESS
 
-    use Leaflet and Leaflet-heat libraries and others (MapBox GL) to draw geographical data on a map in the browser IN PROGRESS
+        ** RESEARCH: May be a problem with MapBox GL JS--doesn't seem to accept JSON. Can use Leaflet-heat but may not be compatible with MapBox GL. Can use with Leaflet JS. **
 
-            ** RESEARCH: May be a problem with MapBox GL JS--doesn't seem to accept JSON. Can use Leaflet-heat but may not be compatible with MapBox GL. Can use with Leaflet JS. **
+    Convert JSON to GeoJSON in this format:
 
-                Convert JSON to GeoJSON TO DO
+            {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [125.6, 10.1]
+            }
+            }
+    Research MapBox, MapBox gl JS, Leaflet, and Leaflet-heat
 
-Determine order of lat, long TO DO
+    Coordinates in this order: long, lat
 
-{
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [125.6, 10.1]
-  }
-}
+	Bind in geo bounding box using MapBox
 
-	Bound in geo bounding box such as MapBox (free tier) DONE
-
-    Make lat and long columns fit mapbox API  RESEARCH
-
-        Read about MapBox GL JS (JS library) https://docs.mapbox.com/mapbox-gl-js/api/ DONE
-
-        Read more about Leaflet.heat DONE
-
-        And read https://docs.mapbox.com/mapbox.js/api/v3.2.0/ REVISIT
-
-        *Note that Leaflet and Mapbox use the reverse order of Longitude, Latitude.
-
-        Choose one: will try MapBox GL JS, because it has a nice tutorial to follow.
-
-            May use:
-                heatmap-density
-                zoom
-
-        Choose a Style: mapbox://styles/mapbox/satellite-streets-v11 DONE
-
-        Push database onto heroku.
+   
 
 4) Django REST Framework buildout 
 
-    Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box.  Research endpoint requirements. TO DO
+    Research endpoint requirements
+    
+    Define a REST endpoint that returns a list of coordinates within a geographic coordinate bounding box  
        
-    url for api in heatmap.urls DONE
+    url for api in heatmap.urls 
 
     api app: 
-        views DONE
-        serializers DONE
-        https://www.django-rest-framework.org/api-guide/fields/#floatfield
-        urls DONE
 
-        Wednesday steps: 
+        views 
+
+        serializers 
+
+        https://www.django-rest-framework.org/api-guide/fields/#decimalfield
+
+        urls 
+
+5) Deploy to Heroku 
+
+    Create requirements.txt for dependencies
+    
+    install heroku
+
+    https://blooming-journey-52100.herokuapp.com/
+    
+Wednesday steps: 
 
         1. Follow steps from link to dump data from database on to heroku (not git). Remove .json file from project.
 
@@ -260,25 +291,3 @@ Determine order of lat, long TO DO
         8. Clean up notes on README.
 
         9. Submit
-
-        10. Review all code to reinforce understanding of each aspect. 
-
-        11. Crush interview. :)
-
-5) Deploy to Heroku DONE
-
-    https://blooming-journey-52100.herokuapp.com/
-
-    Create requirements.txt for dependencies, install heroku using class notes DONE
-
-    Fix deployment crashing problem DONE
-
-BONUS/Opt
-
-	Fine tune data Opt.
-
-    Write tests to verify behavior
-
-	    Test lat/long command function with top 3 lines of CVS file before using on entire file DONE
-
-    Additional tests using tests.py

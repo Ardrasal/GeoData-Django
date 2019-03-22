@@ -22,7 +22,7 @@ map.on('load', function() {
 // Add a geojson point source.
   map.addSource('test', {
   "type": "geojson",
-  "data": "http://127.0.0.1:8000/api"
+  "data": "https://blooming-journey-52100.herokuapp.com/api/"
   });
   
   map.addLayer({

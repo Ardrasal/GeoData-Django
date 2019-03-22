@@ -5,7 +5,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0ajNvcHM5MnZ3YTQ0bnV5c
       style: 'mapbox://styles/mapbox/satellite-streets-v11',
       // Centers on TransLoc
       center: [-78.839185, 35.873970],
-      zoom: 8
+      zoom: 4
     });
 
       // Adds marker to an awesome place!

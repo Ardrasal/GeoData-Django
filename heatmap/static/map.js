@@ -24,10 +24,12 @@ map.on('load', function() {
 // Add a geojson point source.
   map.addSource('test', {
   "type": "geojson",
-  "data": {
-    "type": "FeatureCollection",
-    "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.839185, 35.873970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.765500,36.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.139185, 36.273970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-86.765500,35.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.332500, 45.583400]}}]
-    }
+  "data": "https://blooming-journey-52100.herokuapp.com/api/"
+  
+  // {
+  //   "type": "FeatureCollection",
+  //   "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.839185, 35.873970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.765500,36.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.139185, 36.273970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-86.765500,35.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.332500, 45.583400]}}]
+  //   }
   });
   
   map.addLayer({

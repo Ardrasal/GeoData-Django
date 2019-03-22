@@ -84,7 +84,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
     In memoriam:
 
     `import pandas as pd
-    # import io
+    import io
 
     def handle(self, *args, **kwargs):
         # Truncated_data test:

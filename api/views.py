@@ -1,26 +1,18 @@
-from rest_framework.decorators import api_view
-# from rest_framework.response import Response
+from rest_framework.response import Response
 from rest_framework import generics
 from heatmap.models import LatLong
 from .serializers import LatLongSerializer
-from django.http import JsonResponse
-# from rest_framework.renderers import JSONRenderer
-# from rest_framework.parsers import JSONParser
 
-# class LatLongAPIView(generics.ListAPIView):
-#     """
-#     Creates a read only endpoint for all LatLong instances.
-#     """
-#     queryset = LatLong.objects.all()
-#     serializer_class = LatLongSerializer
-    
 
-@api_view(['GET'])
-def latlong_list(request):
+class LatLongAPIView(generics.ListAPIView):
     """
-    Lists all latlong objects.
+    Creates a read only endpoint for all LatLong instances.
     """
-    if request.method == 'GET':
-        latlongs = LatLong.objects.all()
-        serializer = LatLongSerializer(latlongs, many=True)
-        return JsonResponse(serializer.data, safe=False)
+    queryset = LatLong.objects.all()[:1000]
+    serializer_class = LatLongSerializer
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = LatLongSerializer(queryset, many=True)
+        data = {"type": "FeatureCollection", "features": serializer.data}
+        return Response(data)

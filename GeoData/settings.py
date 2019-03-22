@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'rest_framework',
-    # 'djgeojson',
 
     # My Apps
     'heatmap',

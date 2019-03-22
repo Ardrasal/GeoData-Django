@@ -8,9 +8,7 @@ from django.core.management.base import BaseCommand
 import csv
 from heatmap.models import LatLong
 from django.core.exceptions import ValidationError
-# from decimal import *
 
-# heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv
 
 class Command(BaseCommand):
 

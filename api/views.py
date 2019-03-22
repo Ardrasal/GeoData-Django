@@ -8,7 +8,7 @@ class LatLongAPIView(generics.ListAPIView):
     """
     Creates a read only endpoint for all LatLong instances.
     """
-    queryset = LatLong.objects.all()[:1000]
+    queryset = LatLong.objects.all()[:10000]
     serializer_class = LatLongSerializer
 
     def list(self, request):

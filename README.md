@@ -8,7 +8,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
 1) CSV
 
-    **Problem:** The csv file was too large for GitHub.
+    **Problem:** The CSV file was too large for GitHub.
 
     **Solution:** I added it to my .gitignore file, and used `git reset --soft HEAD^` and `git reset HEAD <heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv` to go back to prior commits and remove the file from staging.
 
@@ -39,7 +39,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
     `$ web: gunicorn geodata.wsgi`
     (Progress! I got a `no module named geodata` error.) I repeated these steps with `web: gunicorn GeoData.wsgi` (New error! `ModuleNotFoundError: No module named 'GeoData.heroku_settings`) And that's right, there was no module named that at the time (it was temporarily commented out).
 
-    7. I un-commented heroku_settings.py', pushed to git and to Heroku. I got an error while running `$ python manage.py collectstatic --noinput`. I tried adding a css file under 'static/'.
+    7. I un-commented heroku_settings.py', pushed to git and to Heroku. I got an error while running `$ python manage.py collectstatic --noinput`. I tried adding a CSS file under 'static/'.
 
     **Solution**: It needed to be: `web: gunicorn GeoData.wsgi`, but I had neglected to push to Heroku, and fix a few other things such as un-commenting heroku_settings.py and adding my requirements.txt.
 
@@ -79,7 +79,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     **Solution:** 
     
-    I consulted with Clinton from Momentum, who thought that pandas would be problematic for the future steps in this challenge. He suggested I use the simpler csv Reader that I had previously rejected. Specifically, the DictReader. So I scrapped pandas. I spent many hours working with pandas in this project. Goodbye beautiful code! I'll never forget you!
+    I consulted with Clinton from Momentum, who thought that pandas would be problematic for the future steps in this challenge. He suggested I use the simpler CSV Reader that I had previously rejected. Specifically, the DictReader. So I scrapped pandas. I spent many hours working with pandas in this project. Goodbye beautiful code! I'll never forget you!
 
     In memoriam:
 
@@ -95,7 +95,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
         # '''
         # df = pd.read_csv(io.StringIO(truncated_data), usecols=["latitude", "longitude"])
 
-        # Parses from entire csv file:
+        # Parses from entire CSV file:
         df = pd.read_csv(("heatmap/.GeoLite2-City-CSV_20190312/.GeoLite2-City-Blocks-IPv4.csv"), usecols=["latitude", "longitude"])
         df = df[['latitude', 'longitude']]
         df.head() # just top 5 rows`
@@ -104,17 +104,17 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     **Problem:** 
 
-    I needed to figure out how to get the latitude and longitude data saved through the LatLong Model, so it could then be serialized and written to a json (or geojson) api endpoint. 
+    I needed to figure out how to get the latitude and longitude data saved through the LatLong Model, so it could then be serialized and written to a JSON (or GeoJSON) API endpoint. 
 
     **Solution:** 
     
-    I used the csv DictReader to isolate lat and long, and create model objects. Then used the ModelSerializer class to manipulate the serialization, and send it through the ListAPIView to return the GeoJSON data in the api endpoint.
+    I used the CSV DictReader to isolate lat and long, and create model objects. Then used the ModelSerializer class to manipulate the serialization, and send it through the ListAPIView to return the GeoJSON data in the API endpoint.
 
 5) DELETE LARGE NUMBER OF TEST OBJECTS
 
     **Problem:** 
 
-    109k+ model objects were created during testing, that needed to be deleted before creating from the full csv file of 3 million + objects.
+    109k+ model objects were created during testing, that needed to be deleted before creating from the full CSV file of 3 million + objects.
 
     **Solution:**  
     
@@ -124,14 +124,14 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     **Problem:**   
 
-    When running my management command to pull out latitudes and longitudes from the csv and create objects, I got the following error:
+    When running my management command to pull out latitudes and longitudes from the CSV and create objects, I got the following error:
 
     `.../python3.7/site-packages/django/db/models/fields/__init__.py", line 1559, in to_python
     params={'value': value}, django.core.exceptions.ValidationError: ["'' value must be a decimal number."]`
 
     **Tried:** 
     
-    I looked through the cvs, and saw that some of the lat/long values were whole numbers. I reasearched to see if that could throw the error, and it didn't look like it should, because the decimal field of the LatLong model turns whole numbers into numbers with zeros after the decimal point. I revisited my choice to choose the decimal field over the float field. I decided that decimal field should be fine.
+    I looked through the CSV, and saw that some of the lat/long values were whole numbers. I reasearched to see if that could throw the error, and it didn't look like it should, because the decimal field of the LatLong model turns whole numbers into numbers with zeros after the decimal point. I revisited my choice to choose the decimal field over the float field. I decided that decimal field should be fine.
 
     **Solution:** 
     
@@ -162,11 +162,38 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     **Problem:**
 
-    Even though hardcoded test points written in GeoJSON format rendered on the heatmap layer, and even though I wrote a serializer that rendered identical looking GeoJSON, the console showed an error that said it was not valid GeoJSON.
+    Even though hardcoded test points written in GeoJSON format rendered on the heatmap layer,and even though I wrote a serializer that rendered identical looking GeoJSON, the console showed an error that said it was not valid GeoJSON.
 
     **Solution:**
 
     I researched, tweaked, and repeatedly tested the map.on('load', function() in my map.js, the serializer, and the view (and the type of view), and ultimately what worked was the def list method added to the ListAPIView.
+
+9) HEROKU DATABASE
+
+    **Problem:**
+
+    I followed the steps [here](https://jaketrent.com/post/django-loaddata-heroku/) to dump my local database into a file, commit to Git, and push onto Heroku, and then pull back from Git without pushing it (because it's way too large). I never got an error, but it didn't populate my Heroku database.
+
+    **Tried:**
+
+    I repeated the steps, and confirmed it still didn't work. 
+
+    **Solution:** 
+
+    I used the same process, but with the CSV file. And then on Heroku I used the management command to read the CSV, pull out the latitude and longitude data, and create objects.
+
+    **Problem 2:**
+
+    The command above ran for around half an hour, and about 10 minutes in Heroku emailed me that I had run over my 10,000 row limit, and that in 7 days they would have to revoke my "insert" privileges. When I stopped the command program because it was no longer adding to Heroku, I had used around 145,000 rows. I did notice that over time, that number was decreasing (around 139,000 one hour later). 
+
+    **Tried:**
+
+    I considered paying for an upgrade plan, but that would involve recreating the database. Since it was the final hour, I didn't want to chance taking a working (but limited) product down and re-running it.
+
+    **Solution:**
+
+    The program is working, the heat layer loads, but it only has around 145,000 objects in my models, instead of over three million. In order to solve this problem, I would have needed to compress the data significantly somehow.  
+
 
 ##### STEPS:
 
@@ -192,23 +219,23 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     - views for index page
 
-2) Research how to access csv file in Django
+2) Research how to access CSV file in Django
     
     Write the python script
 
     Test in Python shell
 
-    Create a management command to load csv file
+    Create a management command to load CSV file
 
-    Test parsing lat/long data from sample (top three lines) of csv
+    Test parsing lat/long data from sample (top three lines) of CSV
 
     Parse data from entire IPv4 file
 	
-        Decide between these two methods (initially chose pandas but later switched to csv Reader)
+        Decide between these two methods (initially chose pandas but later switched to CSV Reader)
 
-		    csv module: (https://docs.python.org/3/library/csv.html) 
+		    CSV module: (https://docs.python.org/3/library/csv.html) 
 
-	        Parse specific columns from csv file 
+	        Parse specific columns from CSV file 
 		    (https://stackoverflow.com/questions/16503560/read-specific-columns-from-a-csv-file-with-csv-module)
 
     Write code to return list of coordinates that can be used for JSON
@@ -257,7 +284,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     Create requirements.txt for dependencies
     
-    install Heroku
+    Install Heroku
 
     (https://blooming-journey-52100.herokuapp.com/)
     
@@ -277,10 +304,8 @@ Finishing Steps:
 
         5. Check that requirements.txt is up to date
 
-        6. Push to git
+        6. Push to Git
 
         7. Push to heroku, limiting queryset to 1000 so the server connection will not time out. Continue to raise queryset and test
 
         8. Submit
-
-

@@ -169,6 +169,7 @@ ISSUES that arose:
     
     https://stackoverflow.com/questions/19573031/cant-push-to-github-because-of-large-file-which-i-already-deleted
 
+    Running out of time to write out Thursday problems, so I'll submit and update later!
 
 STEPS to Solve the Code Challenge:
 
@@ -240,8 +241,6 @@ STEPS to Solve the Code Challenge:
 
 	Bind in geo bounding box using MapBox
 
-   
-
 4) Django REST Framework buildout 
 
     Research endpoint requirements
@@ -268,11 +267,11 @@ STEPS to Solve the Code Challenge:
 
     https://blooming-journey-52100.herokuapp.com/
     
-Wednesday steps: 
+Thursday steps: 
 
         1. Follow steps from link to dump data from database on to heroku (not git). Remove .json file from project.
 
-        2. Serialize model objects to output geojson; store them in an api endpoint.
+        2. Serialize model objects to output geojson; store them in an api endpoint
 
             serializers.py
             api/views.py
@@ -282,12 +281,12 @@ Wednesday steps:
 
         4. Add api endpoint to map.addSource; check that it adds points on heat layer of map.
 
-        5. Check that requirements.txt is up to date.
+        5. Check that requirements.txt is up to date
 
         6. Push to git
 
-        7. Push to heroku
+        7. Push to heroku, limiting queryset to 1000 so the server connection will not time out
 
-        8. Clean up notes on README.
+        8. Submit
 
-        9. Submit
+

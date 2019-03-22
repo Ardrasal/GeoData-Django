@@ -8,28 +8,21 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXJkcmFzYTEiLCJhIjoiY2p0ajNvcHM5MnZ3YTQ0bnV5c
       zoom: 8
     });
 
-//       // Adds marker to an awesome place!
-// var popup = new mapboxgl.Popup()
-//   .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
+      // Adds marker to an awesome place!
+var popup = new mapboxgl.Popup()
+  .setHTML('<h3>TransLoc</h3><p>An awesome place to work!</p>');
       
-//   var marker = new mapboxgl.Marker()
-//     console.log("marker")
-//       .setLngLat([-78.839185, 35.873970])
-//       .setPopup(popup)
-//       .addTo(map);
-//       console.log("map")
+  var marker = new mapboxgl.Marker()
+      .setLngLat([-78.839185, 35.873970])
+      .setPopup(popup)
+      .addTo(map);
  
 map.on('load', function() {
   console.log("asdf")
 // Add a geojson point source.
   map.addSource('test', {
   "type": "geojson",
-  "data": "https://blooming-journey-52100.herokuapp.com/api/"
-  
-  // {
-  //   "type": "FeatureCollection",
-  //   "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.839185, 35.873970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.765500,36.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.139185, 36.273970]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-86.765500,35.912100]}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.332500, 45.583400]}}]
-  //   }
+  "data": "http://127.0.0.1:8000/api"
   });
   
   map.addLayer({
@@ -87,8 +80,5 @@ map.on('load', function() {
   ],
   }
 },
-// 'waterway-label' in example
 );
-// map.addLayer in example
-console.log("api")
 });

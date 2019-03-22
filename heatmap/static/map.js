@@ -18,7 +18,6 @@ var popup = new mapboxgl.Popup()
       .addTo(map);
  
 map.on('load', function() {
-  console.log("asdf")
 // Add a geojson point source.
   map.addSource('test', {
   "type": "geojson",

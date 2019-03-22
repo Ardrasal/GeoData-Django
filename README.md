@@ -18,49 +18,38 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     **Tried:** 
 
-    1. I replaced 'geodata-django' with 'GeoData' but got the same message: `No module named 'geodata-django'`. 
+    1. I replaced 'geodata-django' with 'GeoData' but got the same message: `No module named 'geodata-django'`. Ultimately this step was partly the answer.
 
-    2. I found (https://devcenter.heroku.com/articles/python-pip), which addresses how to get heroku to recognize any requirements that are installed locally. I used this command found on Stackoverflow, when searching how to make a requirements.txt: `pip freeze > requirements.txt`. I still got the same error, but this step needed to be done anyway. 
-
-    3. I re-ordered my 'Installed Apps' in my settings, and positioned 'My Apps' at the bottom of the list. 
-
-    4. I tried the instructions from (https://help.heroku.com/BWJ7QYTF/why-am-i-seeing-importerror-no-module-named-site-when-deploying-a-python-app) `heroku config`. 
-
-    5. I reviewed [Heroku set-up](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true) and tried 
+    2. I reviewed [Heroku set-up](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true) and tried 
     `$ heroku ps:scale web=1` to ensure that at least one instance of the app was running. I got a positive response `Scaling dynos... done, now running web at 1:Free`. 
 
-    6. I restarted Heroku with `heroku restart`.
+    3. I restarted Heroku with `heroku restart`.
 
-    7. I connected a psql session with my remote database: `$ heroku pg:psql`
+    4. I connected a psql session with my remote database: `$ heroku pg:psql`
     output (abbr.)--> `Connecting to gresql-polished-87072
     psql
     blooming-journey-52100::DATABASE=>`
 
-    At this point I figured out the problem: the Procfile does need to read `web: gunicorn geodata.wsgi`. My first idea was the right thing to try, but I still needed to figure out why it didn't work.
+    5. I tried writing to the Procfile using `echo "web: python app.py" > Procfile` in the command line. This was a cool trick that I'm glad I got to try, but unfortunately got the same result. (https://stackoverflow.com/questions/15790691/procfile-not-found-heroku-python-app)
 
-    8. I changed it (again), committed and pushed it, and restarted Heroku a few times. Heroku continued to call for `web: gunicorn geodata-django.wsgi` and give the `no module found named geodata-django` error. Googling this issue only led to one solution which I'd already tried (committing and pushing the correction to git and then `heroku restart`). 
-
-    9. I tried writing to the Procfile using `echo "web: python app.py" > Procfile` in the command line. This was a cool trick that I'm glad I got to try, but unfortunately got the same result. (https://stackoverflow.com/questions/15790691/procfile-not-found-heroku-python-app)
-
-    10. From (https://stackoverflow.com/questions/29481506/heroku-procfile-not-working) I tried `$ heroku run bash
+    6. From (https://stackoverflow.com/questions/29481506/heroku-procfile-not-working) I tried `$ heroku run bash
     $ cat Procfile`
     output --> `web: gunicorn geodata-django.wsgi` and `no module named geodata-django`.
     I entered:
     `$ web: gunicorn geodata.wsgi`
     (Progress! I got a `no module named geodata` error.) I repeated these steps with `web: gunicorn GeoData.wsgi` (New error! `ModuleNotFoundError: No module named 'GeoData.heroku_settings`) And that's right, there was no module named that at the time (it was temporarily commented out).
 
-    12. I un-commented heroku_settings.py', pushed to git and to Heroku. I got an error while running `$ python manage.py collectstatic --noinput`. I tried adding a css file under 'static/'.
+    7. I un-commented heroku_settings.py', pushed to git and to Heroku. I got an error while running `$ python manage.py collectstatic --noinput`. I tried adding a css file under 'static/'.
 
-    **Solution**: It needed to be: `web: gunicorn GeoData.wsgi`.
+    **Solution**: It needed to be: `web: gunicorn GeoData.wsgi`, but I had neglected to push to Heroku, and fix a few other things such as un-commenting heroku_settings.py and adding my requirements.txt.
 
     **Lessons Learned:** 
     
     I should make all apps, projects, and files lower case to reduce the chance of this type of error. I am now well-versed in the Heroku deployment. In the past I had done no more than one deployment per project; I did not have experience with doing it frequently. I was following a guide and didn't have the process memorized. But I do now!
 
-3.) DATAFRAME VALUE ERROR
+3) DATAFRAME VALUE ERROR
 
-    **Problem:** In load_geodata.py,
-    `print(df)` works, but `return(df)` gets a `ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().`
+    **Problem:**  In load_geodata.py, `print(df)` works, but `return(df)` gets a `ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().`
 
     **Tried:** 
 
@@ -111,7 +100,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
         df = df[['latitude', 'longitude']]
         df.head() # just top 5 rows`
 
-4.) SAVE LAT AND LONGS FROM CSV
+4) SAVE LAT AND LONGS FROM CSV
 
     **Problem:** 
 
@@ -121,7 +110,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
     
     I used the csv DictReader to isolate lat and long, and create model objects. Then used the ModelSerializer class to manipulate the serialization, and send it through the ListAPIView to return the GeoJSON data in the api endpoint.
 
-5.) DELETE LARGE NUMBER OF TEST OBJECTS
+5) DELETE LARGE NUMBER OF TEST OBJECTS
 
     **Problem:** 
 
@@ -131,7 +120,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
     
     I commented out the code in the handle management command function, and instead ran `LatLong.objects.all().delete()`.
 
-6.) VALIDATION ERROR
+6) VALIDATION ERROR
 
     **Problem:**   
 
@@ -153,7 +142,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
     except ValidationError:
         pass`
 
-7.) ACCIDENTAL LARGE FILE PUSH
+7) ACCIDENTAL LARGE FILE PUSH
 
     **Problem:** 
 
@@ -169,7 +158,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
     
     (https://stackoverflow.com/questions/19573031/cant-push-to-github-because-of-large-file-which-i-already-deleted)
 
-8.) SERIALIZE MODEL OBJECTS INTO GEOJSON
+8) SERIALIZE MODEL OBJECTS INTO GEOJSON
 
     **Problem:**
 
@@ -177,7 +166,7 @@ It was a pleasure and also quite a challenge to work on this project. Below I ha
 
     **Solution:**
 
-    I spent much of the day researching, tweaking, and testing the map.on('load', function() in my map.js, the serializer and the view and the type of view, and ultimately what worked was the def list method added to the ListAPIView.
+    I researched, tweaked, and repeatedly tested the map.on('load', function() in my map.js, the serializer, and the view (and the type of view), and ultimately what worked was the def list method added to the ListAPIView.
 
 ##### STEPS:
 
